@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs4TN + BigInterview | Free Job Search Help for Tennesseans</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3485E7;
+            --primary-dark: #2A6BC7;
+            --primary-light: #E8F4FD;
+            --dark: #1a1a2e;
+            --gray-900: #1e293b;
+            --gray-800: #334155;
+            --gray-700: #475569;
+            --gray-600: #64748b;
+            --gray-200: #e2e8f0;
+            --gray-100: #f1f5f9;
+            --gray-50: #f8fafc;
+            --white: #ffffff;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--white);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-light);
+            color: var(--dark);
+            padding: 80px 20px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top right, rgba(52, 133, 231, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 100px;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            color: var(--dark);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 500;
+            color: var(--gray-700);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            line-height: 1.5;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 18px 40px;
+            font-size: 17px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(52, 133, 231, 0.3);
+        }
+
+        .hero-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(52, 133, 231, 0.4);
+        }
+
+        .hero-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 0;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .video-container {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .video-carousel {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            cursor: grab;
+            will-change: transform;
+        }
+
+        .video-carousel:active {
+            cursor: grabbing;
+        }
+
+        .video-carousel.paused {
+            animation-play-state: paused;
+        }
+
+        .video-card {
+            flex: 0 0 auto;
+            width: 180px;
+            height: 320px;
+            background: var(--gray-900);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            scroll-snap-align: center;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--gray-900);
+            overflow: hidden;
+        }
+
+        .video-wrapper mux-player {
+            width: 100%;
+            height: 100%;
+            --media-object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 60%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            z-index: 2;
+        }
+
+        .video-name {
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .video-role {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Stats Section - Fixed Layout */
+        .stats {
+            padding: 100px 20px;
+            background: var(--white);
+        }
+
+        .stats-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-header {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 60px;
+            letter-spacing: -0.02em;
+        }
+
+        .stats-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item.biginterview h3 {
+            font-size: clamp(80px, 15vw, 120px);
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 8px;
+        }
+
+        .stat-item.biginterview p {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .stat-divider {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-item.average h3 {
+            font-size: clamp(48px, 10vw, 72px);
+            font-weight: 800;
+            color: var(--gray-500);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            text-decoration: line-through;
+            text-decoration-color: var(--gray-400);
+        }
+
+        .stat-item.average p {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+
+        .stats-footer {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid var(--gray-200);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        /* The Problem Section */
+        .problem {
+            padding: 100px 20px;
+            background: var(--gray-50);
+        }
+
+        .problem-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .problem h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .problem-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .problem-item {
+            padding: 28px;
+            background: var(--white);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .problem-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .problem-item p {
+            font-size: 16px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 20px;
+            background: var(--dark);
+            color: white;
+        }
+
+        .how-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .how-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .how-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .how-header p {
+            font-size: 18px;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+            margin-bottom: -30px;
+        }
+
+        .step-content {
+            background: rgba(255,255,255,0.03);
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .step-content p {
+            font-size: 15px;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* What's Included */
+        .included {
+            padding: 100px 20px;
+            background: var(--white);
+        }
+
+        .included-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .included h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature {
+            background: var(--gray-50);
+            padding: 32px;
+            border-radius: 12px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .feature:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .feature p {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 20px;
+            background: var(--gray-50);
+        }
+
+        .testimonials-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonials h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .testimonial {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .testimonial-quote {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            color: var(--gray-800);
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 48px;
+            color: var(--primary);
+            opacity: 0.3;
+            line-height: 1;
+            display: block;
+            margin-bottom: -20px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--dark);
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+
+        .testimonial-meta {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 20px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            opacity: 0.95;
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .final-cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-dark);
+            padding: 18px 48px;
+            font-size: 17px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 20px;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px 80px;
+            }
+
+            .video-card {
+                width: 160px;
+                height: 285px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item.biginterview h3 {
+                font-size: 72px;
+            }
+
+            .stat-item.average h3 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-card {
+                width: 150px;
+                height: 267px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">100% Free for Tennesseans</div>
+            <h1>Get hired in <span>80% less time</span>.</h1>
+            <p class="hero-subtitle">Lost your job? We teach you exactly how to write resumes that get read, applications that get responses, and interviews that get offers.</p>
+            <a href="https://jobs4tn.biginterview.com/register" class="hero-cta">Start Learning Free</a>
+            <p class="hero-note">No credit card. No catch. Paid for by the state of Tennessee.</p>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-carousel" id="videoCarousel">
+                <!-- Video cards will be injected by JavaScript for proper array cycling -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section - Fixed Layout -->
+    <section class="stats">
+        <div class="stats-container">
+            <h2 class="stats-header">Get hired 80% faster than the national average</h2>
+            
+            <div class="stats-comparison">
+                <div class="stat-item biginterview">
+                    <h3>4.5 weeks</h3>
+                    <p>Average hire time with BigInterview training</p>
+                </div>
+                
+                <div class="stat-divider">vs</div>
+                
+                <div class="stat-item average">
+                    <h3>22.6 weeks</h3>
+                    <p>National average job search duration</p>
+                </div>
+            </div>
+            
+            <p class="stats-footer">That is 5 months of your life back. Start today.</p>
+        </div>
+    </section>
+
+    <!-- The Problem -->
+    <section class="problem">
+        <div class="problem-container">
+            <h2>Getting laid off sucks. Job searching does not have to.</h2>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>You send dozens of applications. Silence.</h3>
+                    <p>Most resumes never get past the bots. We will show you how to write ones that humans actually want to read.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>Interviews feel like interrogations.</h3>
+                    <p>Without practice, you freeze up or ramble. We give you the exact questions employers ask and help you nail your answers.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>You do not know what you are worth.</h3>
+                    <p>Salary negotiation is awkward. We will teach you exactly what to say to get paid what you deserve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="how-container">
+            <div class="how-header">
+                <h2>Three steps to your next paycheck.</h2>
+                <p>Everything you need, from first application to final offer.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Fix your resume.</h3>
+                        <p>Our resume builder helps you write something that gets past the algorithms and impresses hiring managers. Templates included.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Apply smarter.</h3>
+                        <p>Stop spraying applications everywhere. Learn how to find the right jobs and write cover letters that get responses.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Ace the interview.</h3>
+                        <p>Practice with our AI interviewer. Get feedback on your answers. Walk into real interviews feeling prepared, not petrified.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is Included -->
+    <section class="included">
+        <div class="included-container">
+            <h2>Everything you need. Nothing you do not.</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎥</div>
+                    <h3>Video Lessons</h3>
+                    <p>Short, practical videos taught by interview experts. Watch at your own pace.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Practice Interviews</h3>
+                    <p>Practice answering questions out loud. Get instant feedback on what you nailed and what needs work.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>Resume Builder</h3>
+                    <p>Templates and step-by-step guidance to build a resume that gets callbacks.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💰</div>
+                    <h3>Salary Negotiation</h3>
+                    <p>Exact scripts for negotiating your offer. Most people leave money on the table. Do not be most people.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <h3>Answer Database</h3>
+                    <p>The most common interview questions, broken down. Learn what employers actually want to hear.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <h3>Cover Letter Help</h3>
+                    <p>Templates and examples that do not sound like everyone else's.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <h2>Real people. Real results.</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-quote">I was out of work for three months and getting nowhere. Two weeks after starting BigInterview, I had three offers.</p>
+                    <p class="testimonial-author">Marcus T.</p>
+                    <p class="testimonial-role">Hired at FedEx, Memphis</p>
+                    <div class="testimonial-meta">✓ Hired in 6 weeks</div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-quote">The practice interviews saved me. I went from freezing up to actually enjoying the conversation. Got the job on the spot.</p>
+                    <p class="testimonial-author">Jennifer K.</p>
+                    <p class="testimonial-role">Hired at HCA, Nashville</p>
+                    <div class="testimonial-meta">✓ First interview, got offer</div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-quote">Big Interview helped me in ways that made the difference in matching into a residency program! I garnered more interviews than ever and matched into my first choice!</p>
+                    <p class="testimonial-author">Noah Friedland</p>
+                    <p class="testimonial-role">Medical Resident</p>
+                    <div class="testimonial-meta">✓ Matched to first choice</div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-quote">I prepared my job interview with the Fast Track course and I nailed it! I got the job and I'm working as a data scientist for an IT consulting company.</p>
+                    <p class="testimonial-author">Carlos David Jurado</p>
+                    <p class="testimonial-role">Data Scientist</p>
+                    <div class="testimonial-meta">✓ Hired as Data Scientist</div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-quote">I used it religiously when applying for a really competitive job and I got it!!! It was the only job I applied for. Thank you for the time and care you put into this.</p>
+                    <p class="testimonial-author">Amanda P.</p>
+                    <p class="testimonial-role">Marketing Professional</p>
+                    <div class="testimonial-meta">✓ Only application, got hired</div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-quote">Your interview prep videos were really helpful and helped me identify where I was making mistakes. I was pre-matched to a residency program on my first interview!</p>
+                    <p class="testimonial-author">Kiran Gill</p>
+                    <p class="testimonial-role">Medical Resident</p>
+                    <div class="testimonial-meta">✓ Pre-matched on first try</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Stop guessing. Start getting offers.</h2>
+        <p>You have got nothing to lose except more weeks of unemployment.</p>
+        <a href="https://jobs4tn.biginterview.com/register" class="final-cta-button">Get Started Free</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Jobs4TN powered by <a href="https://biginterview.com">BigInterview</a>. Paid for by the Tennessee Department of Labor.</p>
+    </footer>
+
+    <script>
+        // Video carousel with smooth infinite scroll (no DOM manipulation during animation)
+        (function() {
+            const carousel = document.getElementById('videoCarousel');
+            if (!carousel) return;
+
+            // Video data array - the single source of truth
+            const videos = [
+                { name: 'Jennifer K.', role: 'Hired at HCA, Nashville', playbackId: '9RL19nNIKaAUfjeojghwmXGJuGVgFaTyu81G501oHqnM' },
+                { name: 'Marcus T.', role: 'Hired at FedEx, Memphis', playbackId: 'BEB00RIGlpRH6INlHvar5id3lYt01uXWxwjst596r4ayk' },
+                { name: 'Noah F.', role: 'Matched to residency', playbackId: 'hO01uCfLVpsQQaRQOhl6zRGow77BD00kRIuIn5400vvTTQ' },
+                { name: 'Amanda P.', role: 'Got her dream job', playbackId: 'J9xG00qCI9RLTSfui008HXTzJygs5Vm1gAQnxhrewW7DI' },
+                { name: 'Carlos D.', role: 'Data Scientist', playbackId: 'KlwnRVWa4AeLanMRD4rc01Fb54wE14rxdcsIy01Qn3BXs' }
+            ];
+
+            const CARD_WIDTH = 196; // 180 + 16 gap
+            const SCROLL_SPEED = 0.5; // pixels per frame - slower for smoother feel
+            const DUPLICATES = 6; // Number of times to duplicate the entire set
+
+            let isPaused = false;
+            let scrollOffset = 0;
+            let animationId = null;
+
+            // Create a video card element
+            function createCard(video, index) {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <div class="video-wrapper">
+                        <mux-player 
+                            playback-id="${video.playbackId}" 
+                            metadata-video-title="${video.name} Testimonial"
+                            style="width: 100%; height: 100%; --controls: none;" 
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline
+                            preload="metadata"
+                        ></mux-player>
+                        <div class="video-overlay">
+                            <div class="video-name">${video.name}</div>
+                            <div class="video-role">${video.role}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click handler for unmuting/pausing carousel
+                const player = card.querySelector('mux-player');
+                
+                // Wait for player to be ready
+                player.addEventListener('loadeddata', () => {
+                    // Video is ready to play
+                });
+                
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (player.muted) {
+                        // Unmute this player, mute others
+                        document.querySelectorAll('mux-player').forEach(p => {
+                            if (p !== player) p.muted = true;
+                        });
+                        player.muted = false;
+                        isPaused = true;
+                    } else {
+                        player.muted = true;
+                        isPaused = false;
+                    }
+                });
+                
+                return card;
+            }
+
+            // Initialize the carousel with all duplicated content upfront
+            function init() {
+                carousel.innerHTML = '';
+                
+                // Create DUPLICATES copies of the video set
+                // This ensures we never run out of content during scroll
+                for (let d = 0; d < DUPLICATES; d++) {
+                    videos.forEach((video, index) => {
+                        const card = createCard(video, index);
+                        carousel.appendChild(card);
+                    });
+                }
+
+                // Calculate total width for seamless looping
+                const totalCards = videos.length * DUPLICATES;
+                const setWidth = videos.length * CARD_WIDTH;
+                
+                // Start at position 0
+                scrollOffset = 0;
+                carousel.style.transform = `translateX(0px)`;
+                
+                return { totalCards, setWidth };
+            }
+
+            const { setWidth } = init();
+
+            // Smooth animation loop using CSS transform
+            function animate() {
+                if (!isPaused) {
+                    scrollOffset += SCROLL_SPEED;
+                    
+                    // When we've scrolled one full set, reset to beginning seamlessly
+                    if (scrollOffset >= setWidth) {
+                        scrollOffset = 0;
+                    }
+                    
+                    // Use translate3d for GPU acceleration
+                    carousel.style.transform = `translate3d(-${scrollOffset}px, 0, 0)`;
+                }
+                
+                animationId = requestAnimationFrame(animate);
+            }
+
+            // Pause on interaction
+            carousel.addEventListener('mouseenter', () => { isPaused = true; });
+            carousel.addEventListener('mouseleave', () => { 
+                // Only resume if no video is playing (unmuted)
+                const anyUnmuted = Array.from(document.querySelectorAll('mux-player')).some(p => !p.muted);
+                if (!anyUnmuted) isPaused = false; 
+            });
+            carousel.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+            carousel.addEventListener('touchend', () => {
+                setTimeout(() => { 
+                    const anyUnmuted = Array.from(document.querySelectorAll('mux-player')).some(p => !p.muted);
+                    if (!anyUnmuted) isPaused = false;
+                }, 1000);
+            }, { passive: true });
+
+            // Start animation
+            animate();
+        })();
+    </script>
+</body>
+</html>
